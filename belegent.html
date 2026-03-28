@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Balanced Elegant Resume</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  background: #f5f5f5;
+  font-family: 'Poppins', sans-serif;
+}
+
+.main {
+  padding: 30px;
+}
+
+/* Form */
+.form-box {
+  background: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Resume */
+.resume-box {
+  background: white;
+  padding: 50px;
+  border: 1px solid #ddd;
+  min-height: 1100px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Elegant divider */
+.divider {
+  width: 60px;
+  height: 2px;
+  background: #111827;
+  margin: 10px auto 20px;
+}
+
+/* Two column */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 20px;
+}
+
+.section h5 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #111827;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.section h5::after {
+  content: "";
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: #111827;
+  margin-top: 4px;
+}
+
+/* Lists */
+.section ul {
+  padding-left: 18px;
+}
+
+.section li {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+/* Button */
+.btn-download {
+  margin-top: 15px;
+  background: #111827;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+}
+
+/* Print */
+@media print {
+  .form-box, .btn-download {
+    display: none;
+  }
+  body {
+    background: white;
+  }
+  .resume-box {
+    border: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container main">
+<div class="row g-4">
+
+<!-- FORM -->
+<div class="col-md-5">
+<div class="form-box">
+
+<h4>Enter Details</h4>
+
+<input class="form-control mb-2" placeholder="Full Name" oninput="update()">
+<input class="form-control mb-2" placeholder="Email" oninput="update()">
+<input class="form-control mb-2" placeholder="Phone" oninput="update()">
+
+<input type="file" class="form-control mb-2" accept="image/*" onchange="loadImage(event)">
+
+<textarea class="form-control mb-2" placeholder="Objective (2-3 lines)" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Skills (one per line)" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Education (one per line)" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Experience (one per line)" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Projects (one per line)" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Internships (one per line)" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Certifications (one per line)" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Achievements (one per line)" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Languages (one per line)" oninput="update()"></textarea>
+
+<button class="btn-download" onclick="window.print()">Download</button>
+
+</div>
+</div>
+
+<!-- RESUME -->
+<div class="col-md-7">
+<div class="resume-box">
+
+<!-- Header -->
+<div class="header">
+  <img id="profilePic" class="profile-img" src="https://via.placeholder.com/150">
+  <h2 id="name">Your Name</h2>
+  <p id="contact">email@example.com | 1234567890</p>
+  <div class="divider"></div>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+<div>
+  <div class="section">
+    <h5>Objective</h5>
+    <ul id="objective"></ul>
+  </div>
+
+  <div class="section">
+    <h5>Education</h5>
+    <ul id="education"></ul>
+  </div>
+
+  <div class="section">
+    <h5>Projects</h5>
+    <ul id="projects"></ul>
+  </div>
+
+  <div class="section">
+    <h5>Internships</h5>
+    <ul id="internships"></ul>
+  </div>
+</div>
+
+<div>
+  <div class="section">
+    <h5>Skills</h5>
+    <ul id="skills"></ul>
+  </div>
+
+  <div class="section">
+    <h5>Experience</h5>
+    <ul id="experience"></ul>
+  </div>
+
+  <div class="section">
+    <h5>Certifications</h5>
+    <ul id="certifications"></ul>
+  </div>
+
+  <div class="section">
+    <h5>Achievements</h5>
+    <ul id="achievements"></ul>
+  </div>
+
+  <div class="section">
+    <h5>Languages</h5>
+    <ul id="languages"></ul>
+  </div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+function makeList(id, text) {
+  let el = document.getElementById(id);
+  el.innerHTML = "";
+  text.split("\n").forEach(t => {
+    if(t.trim()){
+      let li = document.createElement("li");
+      li.textContent = t;
+      el.appendChild(li);
+    }
+  });
+}
+
+function update() {
+  let i = document.querySelectorAll("input, textarea");
+
+  document.getElementById("name").innerText = i[0].value;
+  document.getElementById("contact").innerText = i[1].value + " | " + i[2].value;
+
+  makeList("objective", i[4].value);
+  makeList("skills", i[5].value);
+  makeList("education", i[6].value);
+  makeList("experience", i[7].value);
+  makeList("projects", i[8].value);
+  makeList("internships", i[9].value);
+  makeList("certifications", i[10].value);
+  makeList("achievements", i[11].value);
+  makeList("languages", i[12].value);
+}
+
+function loadImage(event) {
+  document.getElementById("profilePic").src = URL.createObjectURL(event.target.files[0]);
+}
+</script>
+
+</body>
+</html>

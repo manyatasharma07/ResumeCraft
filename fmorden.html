@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Funky Modern Resume</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  background: linear-gradient(135deg, #6f6dd6, #d7a6ee);
+  font-family: 'Poppins', sans-serif;
+}
+
+.main {
+  padding: 30px;
+}
+
+/* Form */
+.form-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Resume */
+.resume-box {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 35% 65%;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  min-height: 1100px;
+}
+
+/* LEFT PANEL */
+.left {
+  background: linear-gradient(160deg, #7bcbd7, #6fc1d3);
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+
+.profile-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 4px solid white;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.left h2 {
+  margin: 10px 0 5px;
+}
+
+.left p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* RIGHT PANEL */
+.right {
+  padding: 25px;
+  background: #f9fafb;
+}
+
+/* Cards */
+.section {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border-left: 5px solid;
+}
+
+/* Different colors */
+.section:nth-child(1) { border-color: #ec4899; }
+.section:nth-child(2) { border-color: #3b82f6; }
+.section:nth-child(3) { border-color: #10b981; }
+.section:nth-child(4) { border-color: #f59e0b; }
+.section:nth-child(5) { border-color: #8b5cf6; }
+.section:nth-child(6) { border-color: #ef4444; }
+
+.section h5 {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* List */
+.section ul {
+  padding-left: 18px;
+}
+
+.section li {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Button */
+.btn-download {
+  margin-top: 15px;
+  background: linear-gradient(to right, #7ed2c3, #6885b4);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 25px;
+}
+
+/* Print */
+@media print {
+  .form-box, .btn-download {
+    display: none;
+  }
+  body {
+    background: white;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container main">
+<div class="row g-4">
+
+<!-- FORM -->
+<div class="col-md-5">
+<div class="form-box">
+
+<h4>Enter Details</h4>
+
+<input class="form-control mb-2" placeholder="Full Name" oninput="update()">
+<input class="form-control mb-2" placeholder="Email" oninput="update()">
+<input class="form-control mb-2" placeholder="Phone" oninput="update()">
+
+<input type="file" class="form-control mb-2" onchange="loadImage(event)">
+
+<textarea class="form-control mb-2" placeholder="Objective" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Skills" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Education" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Experience" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Projects" oninput="update()"></textarea>
+<textarea class="form-control mb-2" placeholder="Achievements" oninput="update()"></textarea>
+
+<button class="btn-download" onclick="window.print()">Download</button>
+
+</div>
+</div>
+
+<!-- RESUME -->
+<div class="col-md-7">
+<div class="resume-box">
+
+<!-- LEFT -->
+<div class="left">
+  <img id="profilePic" class="profile-img" src="https://via.placeholder.com/150">
+  <h2 id="name">Your Name</h2>
+  <p id="contact">email@example.com<br>1234567890</p>
+</div>
+
+<!-- RIGHT -->
+<div class="right">
+
+<div class="section">
+<h5>Objective</h5>
+<ul id="objective"></ul>
+</div>
+
+<div class="section">
+<h5>Skills</h5>
+<ul id="skills"></ul>
+</div>
+
+<div class="section">
+<h5>Education</h5>
+<ul id="education"></ul>
+</div>
+
+<div class="section">
+<h5>Experience</h5>
+<ul id="experience"></ul>
+</div>
+
+<div class="section">
+<h5>Projects</h5>
+<ul id="projects"></ul>
+</div>
+
+<div class="section">
+<h5>Achievements</h5>
+<ul id="achievements"></ul>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+function makeList(id, text) {
+  let el = document.getElementById(id);
+  el.innerHTML = "";
+  text.split("\n").forEach(t => {
+    if(t.trim()){
+      let li = document.createElement("li");
+      li.textContent = t;
+      el.appendChild(li);
+    }
+  });
+}
+
+function update() {
+  let i = document.querySelectorAll("input, textarea");
+
+  document.getElementById("name").innerText = i[0].value;
+  document.getElementById("contact").innerHTML = i[1].value + "<br>" + i[2].value;
+
+  makeList("objective", i[4].value);
+  makeList("skills", i[5].value);
+  makeList("education", i[6].value);
+  makeList("experience", i[7].value);
+  makeList("projects", i[8].value);
+  makeList("achievements", i[9].value);
+}
+
+function loadImage(event) {
+  document.getElementById("profilePic").src = URL.createObjectURL(event.target.files[0]);
+}
+</script>
+
+</body>
+</html>
